@@ -45,6 +45,22 @@
           </a>
         </li>
         <li class="sidebar-item">
+          <a class="sidebar-link" href="desarrolladores/desarrolladores.php" target="base" aria-expanded="false">
+            <span>
+              <i class="ti ti-book"></i>
+            </span>
+            <span class="hide-menu">Desarrolladores</span>
+          </a>
+        </li>
+        <li class="sidebar-item">
+          <a class="sidebar-link" href="proyectosit/proyectosit.php" target="base" aria-expanded="false">
+            <span>
+              <i class="ti ti-book"></i>
+            </span>
+            <span class="hide-menu">Proyectosit</span>
+          </a>
+        </li>
+        <li class="sidebar-item">
           <a class="sidebar-link" href="calificaciones/calificaciones.php" target="base" aria-expanded="false">
             <span>
               <i class="ti ti-atom"></i>

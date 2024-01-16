@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.1
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 14-12-2023 a las 21:58:22
--- Versión del servidor: 10.4.28-MariaDB
--- Versión de PHP: 8.2.4
+-- Tiempo de generación: 16-01-2024 a las 06:42:23
+-- Versión del servidor: 10.4.27-MariaDB
+-- Versión de PHP: 8.2.0
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -20,8 +20,6 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `examen`
 --
-CREATE DATABASE IF NOT EXISTS `examen` DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
-USE `examen`;
 
 -- --------------------------------------------------------
 
@@ -29,7 +27,6 @@ USE `examen`;
 -- Estructura de tabla para la tabla `calificaciones`
 --
 
-DROP TABLE IF EXISTS `calificaciones`;
 CREATE TABLE `calificaciones` (
   `id_calificaciones` int(11) NOT NULL,
   `id_estudiante` int(5) NOT NULL,
@@ -38,17 +35,6 @@ CREATE TABLE `calificaciones` (
   `Fecha` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
---
--- RELACIONES PARA LA TABLA `calificaciones`:
---   `id_estudiante`
---       `estudiantes` -> `id_estudiante`
---
-
---
--- Truncar tablas antes de insertar `calificaciones`
---
-
-TRUNCATE TABLE `calificaciones`;
 --
 -- Volcado de datos para la tabla `calificaciones`
 --
@@ -60,10 +46,23 @@ INSERT INTO `calificaciones` (`id_calificaciones`, `id_estudiante`, `Materia`, `
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `desarrolladores`
+--
+
+CREATE TABLE `desarrolladores` (
+  `ID_desarrollador` int(11) NOT NULL,
+  `Nombre` varchar(255) NOT NULL,
+  `Habilidades` varchar(255) DEFAULT NULL,
+  `Salario` decimal(10,2) DEFAULT NULL,
+  `Proyecto_asignado` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `estudiantes`
 --
 
-DROP TABLE IF EXISTS `estudiantes`;
 CREATE TABLE `estudiantes` (
   `id_estudiante` int(11) NOT NULL,
   `Nombre` text NOT NULL,
@@ -72,15 +71,6 @@ CREATE TABLE `estudiantes` (
   `GPA` int(5) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
---
--- RELACIONES PARA LA TABLA `estudiantes`:
---
-
---
--- Truncar tablas antes de insertar `estudiantes`
---
-
-TRUNCATE TABLE `estudiantes`;
 --
 -- Volcado de datos para la tabla `estudiantes`
 --
@@ -92,10 +82,23 @@ INSERT INTO `estudiantes` (`id_estudiante`, `Nombre`, `Edad`, `Curso`, `GPA`) VA
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `proyectosit`
+--
+
+CREATE TABLE `proyectosit` (
+  `ID_proyecto` int(11) NOT NULL,
+  `Nombre` varchar(255) NOT NULL,
+  `Tecnologia` varchar(100) DEFAULT NULL,
+  `Fecha_inicio` date DEFAULT NULL,
+  `Fecha_fin` date DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `usuarios`
 --
 
-DROP TABLE IF EXISTS `usuarios`;
 CREATE TABLE `usuarios` (
   `Usuarioid` int(11) NOT NULL,
   `Nombres` varchar(50) NOT NULL,
@@ -108,20 +111,12 @@ CREATE TABLE `usuarios` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- RELACIONES PARA LA TABLA `usuarios`:
---
-
---
--- Truncar tablas antes de insertar `usuarios`
---
-
-TRUNCATE TABLE `usuarios`;
---
 -- Volcado de datos para la tabla `usuarios`
 --
 
 INSERT INTO `usuarios` (`Usuarioid`, `Nombres`, `Apellidos`, `Cedula`, `Contrasenia`, `Correo`, `Rol`, `Telefono`) VALUES
-(1, 'Josue', 'Yepez', '1002672929', 'joyep2000', 'joyep_2000@yahoo.com', 'Administrador', '0999223349');
+(1, 'Josue', 'Yepez', '1002672929', 'joyep2000', 'joyep_2000@yahoo.com', 'Administrador', '0999223349'),
+(2, 'Byron', 'Jimenez', '1719934331', '12345678', 'byronjimenez55@gmail.com', 'Administrador', '0961238616');
 
 --
 -- Índices para tablas volcadas
@@ -135,10 +130,23 @@ ALTER TABLE `calificaciones`
   ADD KEY `id_estudiante` (`id_estudiante`);
 
 --
+-- Indices de la tabla `desarrolladores`
+--
+ALTER TABLE `desarrolladores`
+  ADD PRIMARY KEY (`ID_desarrollador`),
+  ADD KEY `Proyecto_asignado` (`Proyecto_asignado`);
+
+--
 -- Indices de la tabla `estudiantes`
 --
 ALTER TABLE `estudiantes`
   ADD PRIMARY KEY (`id_estudiante`);
+
+--
+-- Indices de la tabla `proyectosit`
+--
+ALTER TABLE `proyectosit`
+  ADD PRIMARY KEY (`ID_proyecto`);
 
 --
 -- Indices de la tabla `usuarios`
@@ -157,16 +165,28 @@ ALTER TABLE `calificaciones`
   MODIFY `id_calificaciones` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
+-- AUTO_INCREMENT de la tabla `desarrolladores`
+--
+ALTER TABLE `desarrolladores`
+  MODIFY `ID_desarrollador` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT de la tabla `estudiantes`
 --
 ALTER TABLE `estudiantes`
   MODIFY `id_estudiante` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
+-- AUTO_INCREMENT de la tabla `proyectosit`
+--
+ALTER TABLE `proyectosit`
+  MODIFY `ID_proyecto` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `Usuarioid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `Usuarioid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- Restricciones para tablas volcadas
@@ -178,93 +198,12 @@ ALTER TABLE `usuarios`
 ALTER TABLE `calificaciones`
   ADD CONSTRAINT `calificaciones_ibfk_1` FOREIGN KEY (`id_estudiante`) REFERENCES `estudiantes` (`id_estudiante`) ON UPDATE CASCADE;
 
-
 --
--- Metadatos
+-- Filtros para la tabla `desarrolladores`
 --
-USE `phpmyadmin`;
-
---
--- Metadatos para la tabla calificaciones
---
-
---
--- Truncar tablas antes de insertar `pma__column_info`
---
-
-TRUNCATE TABLE `pma__column_info`;
---
--- Truncar tablas antes de insertar `pma__table_uiprefs`
---
-
-TRUNCATE TABLE `pma__table_uiprefs`;
---
--- Truncar tablas antes de insertar `pma__tracking`
---
-
-TRUNCATE TABLE `pma__tracking`;
---
--- Metadatos para la tabla estudiantes
---
-
---
--- Truncar tablas antes de insertar `pma__column_info`
---
-
-TRUNCATE TABLE `pma__column_info`;
---
--- Truncar tablas antes de insertar `pma__table_uiprefs`
---
-
-TRUNCATE TABLE `pma__table_uiprefs`;
---
--- Truncar tablas antes de insertar `pma__tracking`
---
-
-TRUNCATE TABLE `pma__tracking`;
---
--- Metadatos para la tabla usuarios
---
-
---
--- Truncar tablas antes de insertar `pma__column_info`
---
-
-TRUNCATE TABLE `pma__column_info`;
---
--- Truncar tablas antes de insertar `pma__table_uiprefs`
---
-
-TRUNCATE TABLE `pma__table_uiprefs`;
---
--- Truncar tablas antes de insertar `pma__tracking`
---
-
-TRUNCATE TABLE `pma__tracking`;
---
--- Metadatos para la base de datos examen
---
-
---
--- Truncar tablas antes de insertar `pma__bookmark`
---
-
-TRUNCATE TABLE `pma__bookmark`;
---
--- Truncar tablas antes de insertar `pma__relation`
---
-
-TRUNCATE TABLE `pma__relation`;
---
--- Truncar tablas antes de insertar `pma__savedsearches`
---
-
-TRUNCATE TABLE `pma__savedsearches`;
---
--- Truncar tablas antes de insertar `pma__central_columns`
---
-
-TRUNCATE TABLE `pma__central_columns`;COMMIT;
+ALTER TABLE `desarrolladores`
+  ADD CONSTRAINT `desarrolladores_ibfk_1` FOREIGN KEY (`Proyecto_asignado`) REFERENCES `proyectosit` (`ID_proyecto`);
+COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

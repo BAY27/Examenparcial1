@@ -1,13 +1,13 @@
 <?php
 require_once('cls_conexion.model.php');
-class Clase_Estudiantes
+class Clase_Desarrolladores
 {
     public function todos()
     {
         try {
             $con = new Clase_Conectar_Base_Datos();
             $con = $con->ProcedimientoConectar();
-            $cadena = "SELECT  `estudiantes`";
+            $cadena = "SELECT *FROM `desarrolladores`";
             $result = mysqli_query($con, $cadena);
             return $result;
         } catch (Throwable $th) {
@@ -16,12 +16,12 @@ class Clase_Estudiantes
             $con->close();
         }
     }
-    public function uno($id_estudiante)
+    public function uno($ID_desarrollador)
     {
         try {
             $con = new Clase_Conectar_Base_Datos();
             $con = $con->ProcedimientoConectar();
-            $cadena = "SELECT * FROM `estudiantes` WHERE id_estudiante=$id_estudiante";
+            $cadena = "SELECT * FROM `desarrolladores` WHERE ID_desarrollador=$ID_desarrollador";
             $result = mysqli_query($con, $cadena);
             return $result;
         } catch (Throwable $th) {
@@ -30,12 +30,12 @@ class Clase_Estudiantes
             $con->close();
         }
     }
-    public function insertar($Nombre, $Edad, $Curso, $GPA)
+    public function insertar($Nombre, $Habilidades, $Salario, $Proyecto_asignado)
     {
         try {
             $con = new Clase_Conectar_Base_Datos();
             $con = $con->ProcedimientoConectar();
-            $cadena = "INSERT INTO `estudiantes`(`Nombre`, `Edad`, `Curso`, `GPA`) VALUES ('$Nombre','$Edad','$Curso','$GPA')";
+            $cadena = "INSERT INTO `desarrolladores`(`Nombre`,`Habilidades`,`Salario`,`Proyecto_asignado`) VALUES ('$Nombre', '$Habilidades', '$Salario', '$Proyecto_asignado')";
             $result = mysqli_query($con, $cadena);
             return 'ok';
         } catch (Throwable $th) {
@@ -44,12 +44,12 @@ class Clase_Estudiantes
             $con->close();
         }
     }
-    public function actualizar($id_estudiante, $Nombre, $Edad, $Curso, $GPA)
+    public function actualizar($ID_desarrollador, $Nombre, $Habilidades, $Salario, $Proyecto_asignado)
     {
         try {
             $con = new Clase_Conectar_Base_Datos();
             $con = $con->ProcedimientoConectar();
-            $cadena = "UPDATE `estudiantes` SET `Nombre`='$Nombre',`Edad`='$Edad',`Curso`='$Curso',`GPA`='$GPA' WHERE `id_estudiante`='$id_estudiante'";
+            $cadena = "UPDATE `desarrolladores` SET `Nombre`='$Nombre',`Habilidades`='$Habilidades', `Salario`='$Salario',`Proyecto_asignado`='$Proyecto_asignado' WHERE `ID_desarrollador`='$ID_desarrollador'";
             $result = mysqli_query($con, $cadena);
             return "ok";
         } catch (Throwable $th) {
@@ -58,12 +58,12 @@ class Clase_Estudiantes
             $con->close();
         }
     }
-    public function eliminar($id_estudiante)
+    public function eliminar($ID_desarrollador)
     {
         try {
             $con = new Clase_Conectar_Base_Datos();
             $con = $con->ProcedimientoConectar();
-            $cadena = "DELETE FROM `estudiantes` WHERE id_estudiante=$id_estudiante";
+            $cadena = "DELETE FROM `desarrolladores` WHERE `ID_desarrollador`='$ID_desarrollador'";
             $result = mysqli_query($con, $cadena);
             return "ok";
         } catch (Throwable $th) {
@@ -72,27 +72,12 @@ class Clase_Estudiantes
             $con->close();
         }
     }
-    public function verificar_estudiante($Nombre)
+    public function verificar_Habilidades($Habilidades, $ID_desarrollador)
     {
         try {
             $con = new Clase_Conectar_Base_Datos();
             $con = $con->ProcedimientoConectar();
-            $cadena = "SELECT count(*) as estudiante_repetido FROM `estudiantes` WHERE `Nombre`= '$Nombre'";
-            //echo $cadena;
-            $result = mysqli_query($con, $cadena);
-            return $result;
-        } catch (Throwable $th) {
-            return $th->getMessage();
-        } finally {
-            $con->close();
-        }
-    }
-    public function verificar_curso($Curso)
-    {
-        try {
-            $con = new Clase_Conectar_Base_Datos();
-            $con = $con->ProcedimientoConectar();
-            $cadena = "SELECT count(*) as curso_repetido FROM `estudiantes` WHERE `Curso`= '$Curso'";
+            $cadena = "SELECT count(*) as Habilidades_repetido FROM `desarrolladores` WHERE `Habilidades`= '$Habilidades' and `ID_desarrollador` = '$ID_desarrollador'";
             //echo $cadena;
             $result = mysqli_query($con, $cadena);
             return $result;
